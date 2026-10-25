@@ -69,7 +69,7 @@ int main() {
                         ++get<0>(it->second);
                         cout << name << "'s friendship inreased." << endl;
                     } else {
-                        cout << "Friendship is already maxed out." << endl;
+                        cout << "Friendship is already maximum level." << endl;
                     }
                 } else {
                     cout << "Villager not found." << endl;
@@ -95,10 +95,50 @@ int main() {
                 }
                 break;
             }
+
+            case 3: {
+                // search for villager
+                cout << "Enter villager name: ";
+                cin >> name;
+
+                auto it = villagerInfo.find(name);
+
+                if (it != villagerInfo.end()) {
+                    cout << "Found " << name << "'s information:" << endl;
+                    cout << "Friendship: " << get<0>(it->second) << endl;
+                    cout << "Species: " << get<1>(it->second) << endl;
+                    cout << "Catchphrase: " << get<2>(it->second) << endl;
+                } else {
+                    cout << "Villager not found." << endl;
+                }
+                break;
+            }
+
+            case 4: {
+                // exit program
+                cout << "Exiting program. Goodbye!" << endl;
+                break;
+            }
+
+            default: {
+                cout << "Invalid choice. Please try again." << endl;
+                break;
+            }
+
         }
 
-        case 3: 
-    }
+        // display updated map after each operation
+        if (choice != 4) {
+            cout << "\nVillager details: " << endl;
+
+            for (const auto& pair : villagerInfo) {
+                cout << pair.first << " ["
+                     << get<0>(pair.second) << ", "
+                     << get<1>(pair.second) << ", "
+                     << get<2>(pair.second) << "]" << endl;
+            }
+        }
+    } while (choice != 4);
 
     return 0;
 }
