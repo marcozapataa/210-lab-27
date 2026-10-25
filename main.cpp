@@ -33,8 +33,6 @@ int main() {
                                                 
     }
 
-    // delete an element
-    villagerInfo.erase("Raymond");
 
     // search for an element using .find() to avoid errors
     string searchKey = "Audie";
@@ -48,10 +46,59 @@ int main() {
     } else
         cout << endl << searchKey << " not found." << endl;
 
-    // report size, clear, report size again to confirm map operations
-    cout << "\nSize before clear: " << villagerInfo.size() << endl;
-    villagerInfo.clear();
-    cout << "Size after clear: " << villagerInfo.size() << endl;
+    int choice;
+    string name;
+
+    do {
+        cout << "\n1. Increase Friendship" << endl;
+        cout << "2. Decrease Friendship" << endl;
+        cout << "3. Search for Villager" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                // increase friendship
+                cout << "Enter villager name: ";
+                cin >> name;
+
+                auto it = villagerInfo.find(name);
+                if (it != villagerInfo.end()) {
+                    if (get<0>(it->second) < 10) {
+                        ++get<0>(it->second);
+                        cout << name << "'s friendship inreased." << endl;
+                    } else {
+                        cout << "Friendship is already maxed out." << endl;
+                    }
+                } else {
+                    cout << "Villager not found." << endl;
+                }
+                break;
+            }
+            case 2: {
+                // decrease friendship
+                cout << "Enter villager name: ";
+                cin >> name;
+
+                auto it = villagerInfo.find(name);
+
+                if (it != villagerInfo.end()) {
+                    if (get<0>(it->second) > 0) {
+                        --get<0>(it->second);
+                        cout << name << "'s friendship decreased." << endl;
+                    } else {
+                        cout << "Friendship is already at minimum level." << endl;
+                    }
+                } else {
+                    cout << "Villager not found." << endl;
+                }
+                break;
+            }
+        }
+
+        case 3: 
+    }
 
     return 0;
 }
